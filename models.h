@@ -21,3 +21,10 @@ typedef struct {
     char full_text_url[256];
     int stok;
 } Buku;
+
+// Struktur untuk menyimpan informasi akun pengguna
+typedef struct {
+    char username[32];
+    char password[32];
+    char role[12];
+} User;
