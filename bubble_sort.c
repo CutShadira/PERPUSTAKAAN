@@ -16,5 +16,9 @@ void bubbleSort(Buku **arr, int jumlah_buku, int kriteria, int arah) { // ** art
                 ada_tukar = 1;
             }
         }
+        // jika tidak ada yang ditukar, maka sudah urut, dan break perulangannya
+        if (!ada_tukar) {
+            break;
+        }
     }
 }
