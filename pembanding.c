@@ -19,4 +19,7 @@ int bandingkanTeks(const char *a, const char *b) {
         a++;
         b++;
     }
+    // Salah satu string sudah habis (atau keduanya).
+    // Bandingkan karakter terakhir: string yang lebih pendek dianggap lebih kecil
+    return tolower((unsigned char) *a) - tolower((unsigned char) *b);
 }
