@@ -59,4 +59,11 @@ static int bandingkan(const Buku *a, const Buku *b, int kriteria) {
 int harusTukar(const Buku *a, const Buku *b, int kriteria, int arah) {
     // Ambil hasil perbandingan kedua buku
     int hasil = bandingkan(a, b, kriteria);
+
+    // Urutan naik: tukar jika a lebih besar dari b
+    if (arah == NAIK) {
+        return hasil > 0;
+    }
+    // Urutan turun: tukar jika a lebih kecil dari b
+    return hasil < 0;
 }
