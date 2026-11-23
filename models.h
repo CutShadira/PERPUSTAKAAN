@@ -37,3 +37,23 @@ typedef struct {
     char tanggal_pinjam[20];
     char status[20];
 } Peminjaman;
+
+// membuat variabel global, agar file lain dalam project bisa menggunakan data yang sama
+extern Buku *dataBuku;
+extern int jumlahBuku;
+extern User *dataUser;
+extern int jumlahUser;
+extern Peminjaman *dataPinjam;
+extern int jumlahPinjam;
+
+// Deklarasi prototype fungsi yang digunakan untuk mengelola data dalam program
+int muatSemuaData(void);
+void bebaskanSemuaData(void);
+
+int tambahBukuKeMemori(Buku b);
+int tambahPinjamKeMemori(Peminjaman p);
+
+void simpanBuku(void);
+void simpanPinjam(void);
+
+#endif
