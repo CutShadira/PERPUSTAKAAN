@@ -94,3 +94,35 @@ static void gantiPetik(char *teks)
         }
     }
 }
+// BAGIAN LOGIN
+// Fungsi untuk menampilkan halaman login dan mengembalikan data user yang berhasil masuk
+User *menuLogin(void)
+{
+    char username[32], password[32];
+    User *user;
+    int pilihan;
+// Menampilkan pilihan login atau keluar dari program
+    printf("\n=== SISTEM PERPUSTAKAAN ===\n");
+    printf("1. Login\n");
+    printf("0. Keluar\n");
+    pilihan = bacaAngka("Pilihan: ", 0, 1);
+    if (pilihan == 0)
+    {
+        return NULL;
+    }
+
+    // ulangi terus sampai username dan password benar
+    while (1)
+    {
+        bacaBaris("Username: ", username, sizeof(username));
+        bacaBaris("Password: ", password, sizeof(password));
+        user = login(username, password);
+        if (user != NULL)
+        {
+            // kalau ada
+            return user;
+        }
+        // kalau gak ada
+        printf("Username atau password salah, coba lagi.\n");
+    }
+}
