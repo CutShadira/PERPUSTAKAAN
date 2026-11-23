@@ -28,3 +28,12 @@ typedef struct {
     char password[32];
     char role[12];
 } User;
+
+// Struktur untuk menyimpan informasi transaksi peminjaman buku oleh pengguna
+typedef struct {
+    unsigned int id_peminjaman;
+    char username[32];
+    char ocaid[64];
+    char tanggal_pinjam[20];
+    char status[20];
+} Peminjaman;
