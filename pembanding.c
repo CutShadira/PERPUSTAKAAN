@@ -35,6 +35,15 @@ static int bandingkan(const Buku *a, const Buku *b, int kriteria) {
         case URUT_JUDUL:
             // Bandingkan judul sebagai teks
             return bandingkanTeks(a->title, b->title);
+        case URUT_TAHUN:
+            // Bandingkan tahun terbit (angka)
+            return a->year - b->year;
+        case URUT_HALAMAN:
+            // Bandingkan jumlah halaman(angka)
+            return a->page_count - b->page_count;
+        case URUT_STOK:
+            // Bandingkan jumlah stok (angka)
+            return a->stok - b->stok;
 
         // jika a - b hasilnya negatif, maka a lebih kecil dari b, artinya tidak perlu ditukar
         // jika a - b hasilnya positif, maka a lebih besar dari b, artinya perlu ditukar
