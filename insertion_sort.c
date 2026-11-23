@@ -18,5 +18,8 @@ void insertionSort(Buku **arr, int jumlah_buku, int kriteria, int arah) {
             arr[j + 1] = arr[j];
             j--;
         }
+
+        // Menempatkan buku pada posisi yang tepat
+        arr[j + 1] = kunci;
     }
 }
