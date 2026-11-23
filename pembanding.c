@@ -23,3 +23,16 @@ int bandingkanTeks(const char *a, const char *b) {
     // Bandingkan karakter terakhir: string yang lebih pendek dianggap lebih kecil
     return tolower((unsigned char) *a) - tolower((unsigned char) *b);
 }
+
+// Hasil negatif: a lebih kecil dari b, positif: a lebih besar
+// Membandingkan dua buku berdasarkan kriteria pengurutan yang dipilih.
+// Fungsi ini hanya dipakai di file ini (static).
+static int bandingkan(const Buku *a, const Buku *b, int kriteria) {
+    switch (kriteria) {
+
+        // jika a - b hasilnya negatif, maka a lebih kecil dari b, artinya tidak perlu ditukar
+        // jika a - b hasilnya positif, maka a lebih besar dari b, artinya perlu ditukar
+    }
+    //Kriteria tidak dikenal: anggap kedua buku sama 
+    return 0;
+}
