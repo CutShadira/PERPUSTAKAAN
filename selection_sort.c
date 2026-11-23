@@ -9,6 +9,16 @@ void selectionSort(Buku **arr, int jumlah_buku, int kriteria, int arah)
     // Mencari data yang paling tepat untuk setiap posisi.
     for (i = 0; i < jumlah_buku - 1; i++)
     {
-        terpilih = i;
+                terpilih = i;
+
+        // Mencari data terkecil atau terbesar dari sisa data.
+        for (j = i + 1; j < jumlah_buku; j++)
+        {
+            if (harusTukar(arr[terpilih], arr[j], kriteria, arah))
+            {
+                terpilih = j;
+            }
+        }
+        
     }
 }
