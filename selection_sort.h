@@ -3,4 +3,8 @@
 
 #include "pembanding.h"
 
+
+// Deklarasi fungsi untuk mengurutkan buku dengan Selection Sort.
+void selectionSort(Buku **arr, int n, int kriteria, int arah);
+
 #endif
