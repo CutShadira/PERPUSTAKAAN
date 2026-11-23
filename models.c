@@ -308,3 +308,34 @@ int muatSemuaData(void)
 
     return 1;
 }
+// Menyimpan data buku ke file
+void simpanBuku(void)
+{
+    FILE *f = fopen(FILE_BUKU, "w");
+    int i;
+
+    if (f == NULL)
+    {
+        printf("Gagal menulis %s\n", FILE_BUKU);
+        return;
+    }
+
+    fprintf(f, "ocaid title author year page_count openlibrary_edition "
+               "openlibrary_work full_text_url stok\n");
+
+    for (i = 0; i < jumlahBuku; i++)
+    {
+        fprintf(f, "%s \"%s\" \"%s\" %d %d %s %s %s %d\n",
+                dataBuku[i].ocaid,
+                dataBuku[i].title,
+                dataBuku[i].author,
+                dataBuku[i].year,
+                dataBuku[i].page_count,
+                dataBuku[i].openlibrary_edition,
+                dataBuku[i].openlibrary_work,
+                dataBuku[i].full_text_url,
+                dataBuku[i].stok);
+    }
+
+    fclose(f);
+}
