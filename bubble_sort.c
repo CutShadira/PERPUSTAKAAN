@@ -10,6 +10,10 @@ void bubbleSort(Buku **arr, int jumlah_buku, int kriteria, int arah) { // ** art
         // Membandingkan dua data buku yang bersebelahan.
         for (j = 0; j < jumlah_buku - i - 1; j++) {
             if (harusTukar(arr[j], arr[j + 1], kriteria, arah)) {
+                temp = arr[j];
+                arr[j] = arr[j + 1]; // ditukar posisi dengan data didepannya
+                arr[j + 1] = temp; // lalu data yang didepan tadi ditukar dengan data yang di belakang tadi
+                ada_tukar = 1;
             }
         }
     }
