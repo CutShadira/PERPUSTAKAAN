@@ -8,3 +8,16 @@
 
 // Stok default jika baris buku di file tidak punya kolom stok
 #define STOK_AWAL 5
+
+// Struktur untuk menyimpan seluruh informasi buku
+typedef struct {
+    char ocaid[64];
+    char title[256];
+    char author[256];
+    int year;
+    int page_count;
+    char openlibrary_edition[32];
+    char openlibrary_work[32];
+    char full_text_url[256];
+    int stok;
+} Buku;
