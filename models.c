@@ -132,3 +132,70 @@ int tambahPinjamKeMemori(Peminjaman p)
 
     return 1;
 }
+// Membaca data buku dari file
+static int muatBuku(void)
+{
+    FILE *f = fopen(FILE_BUKU, "r");
+
+    char baris[2048];
+    char tahun[32], halaman[32], stok[32];
+
+    int pos; // menyimpan posisi karakter yang sedang dibaca
+    Buku b;  // untuk menampung data buku sementara
+
+    if (f == NULL)
+    {
+        printf("File %s tidak ditemukan.\n", FILE_BUKU);
+        return 0;
+    }
+
+    while (fgets(baris, sizeof(baris), f) != NULL) // fgets(variabel_tujuan, ukuran_maksimal, file);
+    {
+
+        // Mulai membaca dari karakter pertama
+        // Karena setiap kali membaca baris baru, kita harus memulai pengambilan kata dari karakter pertama.
+        pos = 0;
+
+        if (ambilKata(baris, &pos, b.ocaid, sizeof(b.ocaid)) &&
+            ambilKata(baris, &pos, b.title, sizeof(b.title)) &&
+            ambilKata(baris, &pos, b.author, sizeof(b.author)) &&
+            ambilKata(baris, &pos, tahun, sizeof(tahun)) &&
+            ambilKata(baris, &pos, halaman, sizeof(halaman)) &&
+            ambilKata(baris, &pos, b.openlibrary_edition, sizeof(b.openlibrary_edition)) &&
+            ambilKata(baris, &pos, b.openlibrary_work, sizeof(b.openlibrary_work)) &&
+            ambilKata(baris, &pos, b.full_text_url, sizeof(b.full_text_url)))
+        {
+
+            // Lewati baris judul kolom
+            if (strcmp(b.ocaid, "ocaid") == 0)
+            {
+                continue;
+            }
+
+            // Ubah teks menjadi angka
+            b.year = atoi(tahun);
+            b.page_count = atoi(halaman);
+
+            // Ambil stok buku
+            if (ambilKata(baris, &pos, stok, sizeof(stok)))
+            {
+                b.stok = atoi(stok);
+            }
+            else
+            {
+                b.stok = STOK_AWAL;
+            }
+
+            // Simpan buku ke memori
+            if (!tambahBukuKeMemori(b))
+            {
+                printf("Memori tidak cukup.\n");
+                fclose(f);
+                return 0;
+            }
+        }
+    }
+
+    fclose(f);
+    return 1;
+}
