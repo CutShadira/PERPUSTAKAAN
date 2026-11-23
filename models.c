@@ -245,3 +245,55 @@ static int muatUser(void)
     fclose(f);
     return 1; // menandakan berhasil
 }
+// Membaca data peminjaman dari file
+static int muatPinjam(void)
+{
+    FILE *f = fopen(FILE_PINJAM, "r");
+
+    char baris[256];
+    char id[32];
+
+    int pos;
+    Peminjaman pj;
+
+    // Jika file belum ada, anggap belum ada transaksi
+    if (f == NULL)
+    {
+        return 1;
+    }
+
+    while (fgets(baris, sizeof(baris), f) != NULL)
+    {
+
+        // Mulai dari karakter pertama
+        pos = 0;
+
+        if (ambilKata(baris, &pos, id, sizeof(id)) &&
+            ambilKata(baris, &pos, pj.username, sizeof(pj.username)) &&
+            ambilKata(baris, &pos, pj.ocaid, sizeof(pj.ocaid)) &&
+            ambilKata(baris, &pos, pj.tanggal_pinjam, sizeof(pj.tanggal_pinjam)) &&
+            ambilKata(baris, &pos, pj.status, sizeof(pj.status)))
+        {
+
+            // Lewati baris judul kolom
+            if (strcmp(id, "id_peminjaman") == 0)
+            {
+                continue;
+            }
+
+            // Ubah ID menjadi angka
+            pj.id_peminjaman = (unsigned int)atoi(id);
+
+            // Simpan peminjaman ke memori
+            if (!tambahPinjamKeMemori(pj))
+            {
+                printf("Memori tidak cukup.\n");
+                fclose(f);
+                return 0;
+            }
+        }
+    }
+
+    fclose(f);
+    return 1;
+}
