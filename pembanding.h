@@ -5,5 +5,13 @@
 // Memuat definisi struct Buku dan data model lainnya
 #include "../models.h"
 
+// kriteria pengurutan
+// Kode angka untuk menetukan buku diurutkan berdasarkan apa
+#define URUT_ID 1       // urut berdasarkan ID (ocaid)
+#define URUT_JUDUL 2    // urut berdasarkan judul
+#define URUT_TAHUN 3    // urut berdasarkan tahun terbit
+#define URUT_HALAMAN 4  // urut berdasarkan jumlah halaman
+#define URUT_STOK 5     // urut berdasarkan jumlah stok
+
 // Akhir dari header guard
 #endif
