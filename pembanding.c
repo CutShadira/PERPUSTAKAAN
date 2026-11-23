@@ -10,5 +10,13 @@ int bandingkanTeks(const char *a, const char *b) {
         // Cast ke unsigned char supaya aman untuk tolower()
         int x = tolower((unsigned char) *a);
         int y = tolower((unsigned char) *b);
+
+        //  jika ada karakter yang berbeda, selisihnya jadi hashil perbandingan
+        if (x != y) {
+            return x - y;
+        }
+        // Karakter sama, lanjut ke karakter berikutnya
+        a++;
+        b++;
     }
 }
