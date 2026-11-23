@@ -186,3 +186,186 @@ static void menuCariBuku(void)
         printf("Buku tidak ditemukan.\n");
     }
 }
+// BAGIAN ADMIN
+// Fungsi untuk menambahkan buku baru ke dalam sistem
+static void menuTambahBuku(void)
+{
+    Buku b;
+
+    printf("\n-- Tambah Buku --\n");
+    bacaTanpaSpasi("ID buku (tanpa spasi): ", b.ocaid, sizeof(b.ocaid));
+// Memeriksa apakah ID buku sudah digunakan oleh buku lain
+    if (cariIndexBuku(b.ocaid) != -1)
+    {
+        printf("ID sudah dipakai buku lain.\n");
+        return;
+    }
+// Meminta seluruh informasi buku dan melakukan validasi input
+    bacaTeksWajib("Judul: ", b.title, sizeof(b.title));
+    bacaTeksWajib("Pengarang: ", b.author, sizeof(b.author));
+    gantiPetik(b.title);
+    gantiPetik(b.author);
+    b.year = bacaAngka("Tahun terbit: ", 1, 2100);
+    b.page_count = bacaAngka("Jumlah halaman: ", 1, 100000);
+    bacaTanpaSpasi("Openlibrary edition (tanpa spasi): ", b.openlibrary_edition,
+                   sizeof(b.openlibrary_edition));
+    bacaTanpaSpasi("Openlibrary work (tanpa spasi): ", b.openlibrary_work,
+                   sizeof(b.openlibrary_work));
+    bacaTanpaSpasi("Link teks lengkap / url (tanpa spasi): ", b.full_text_url,
+                   sizeof(b.full_text_url));
+    b.stok = bacaAngka("Stok: ", 0, 1000);
+
+    if (tambahBuku(b))
+    {
+        printf("Buku berhasil ditambahkan.\n");
+    }
+    else
+    {
+        printf("Buku gagal ditambahkan.\n");
+    }
+}
+// Fungsi untuk mengubah informasi buku berdasarkan ID buku yang dipilih
+static void menuUbahBuku(void)
+{
+    char id[64], teks[256];
+    int idx, pilihan, tambahan;
+// Meminta ID buku dan memeriksa keberadaannya di dalam sistem
+    bacaTeksWajib("ID buku yang diubah: ", id, sizeof(id));
+    idx = cariIndexBuku(id);
+    if (idx == -1)
+    {
+        printf("Buku tidak ditemukan.\n");
+        return;
+    }
+ // Menampilkan detail buku dan pilihan informasi yang dapat diubah
+    do
+    {
+        cetakDetailBuku(&dataBuku[idx]);
+        printf("\nYang ingin diubah:\n");
+        printf("1. Judul\n2. Pengarang\n3. Tahun terbit\n");
+        printf("4. Jumlah halaman\n5. Stok (tambah/kurangi)\n0. Selesai\n");
+        pilihan = bacaAngka("Pilihan: ", 0, 5);
+        // Mengubah judul buku
+        if (pilihan == 1)
+        {
+            bacaTeksWajib("Judul baru: ", teks, sizeof(teks));
+            gantiPetik(teks);
+            snprintf(dataBuku[idx].title, sizeof(dataBuku[idx].title), "%s", teks);
+        }
+         // Mengubah nama pengarang buku
+        else if (pilihan == 2)
+        {
+            bacaTeksWajib("Pengarang baru: ", teks, sizeof(teks));
+            gantiPetik(teks);
+            snprintf(dataBuku[idx].author, sizeof(dataBuku[idx].author), "%s", teks);
+        }
+        // Mengubah tahun terbit buku
+        else if (pilihan == 3)
+        {
+            dataBuku[idx].year = bacaAngka("Tahun terbit baru: ", 1, 2100);
+        }
+        // Mengubah jumlah halaman buku
+        else if (pilihan == 4)
+        {
+            dataBuku[idx].page_count = bacaAngka("Jumlah halaman baru: ", 1, 100000);
+        }
+        // Menambah atau mengurangi stok buku
+        else if (pilihan == 5)
+        {
+            tambahan = bacaAngka("Tambah/kurangi stok (contoh 3 atau -2): ", -1000, 1000);
+            if (dataBuku[idx].stok + tambahan < 0)
+            {
+                printf("Stok tidak boleh kurang dari 0.\n");
+                continue;
+            }
+            dataBuku[idx].stok += tambahan;
+        }
+        // Menyimpan perubahan data buku ke file jika pengguna selesai melakukan perubahan pada pilihan tertentu
+        if (pilihan != 0)
+        {
+            simpanBuku();
+            printf("Data berhasil diperbarui.\n");
+        }
+    } while (pilihan != 0);
+}
+// Fungsi untuk menghapus buku berdasarkan ID setelah mendapatkan konfirmasi dari admin
+static void menuHapusBuku(void)
+{
+    char id[64], yakin[8];
+    int idx;
+// Meminta ID buku dan memeriksa apakah buku tersedia
+    bacaTeksWajib("ID buku yang dihapus: ", id, sizeof(id));
+    idx = cariIndexBuku(id);
+    if (idx == -1)
+    {
+        printf("Buku tidak ditemukan.\n");
+        return;
+    }
+// Menampilkan detail buku dan meminta konfirmasi sebelum penghapusan
+    cetakDetailBuku(&dataBuku[idx]);
+    bacaBaris("\nYakin hapus buku ini? (y/n): ", yakin, sizeof(yakin));
+    if (yakin[0] != 'y' && yakin[0] != 'Y')
+    {
+        printf("Dibatalkan.\n");
+        return;
+    }
+// Menghapus buku dan memeriksa apakah buku masih memiliki transaksi peminjaman
+    if (hapusBuku(idx))
+    {
+        printf("Buku berhasil dihapus.\n");
+    }
+    else
+    {
+        printf("Buku tidak bisa dihapus karena masih ada yang meminjam.\n");
+    }
+}
+
+//Fungsi untuk menampilkan laporan seluruh transaksi peminjaman buku
+static void menuLaporan(void)
+{
+    printf("\n-- Laporan Peminjaman --\n\n");
+    if (tampilPinjaman(NULL, 0) == 0)
+    {
+        printf("Belum ada transaksi peminjaman.\n");
+    }
+}
+// Fungsi untuk menampilkan dan menjalankan menu khusus admin
+static void menuAdmin(User *user)
+{
+    int pilihan;
+
+    do
+    {
+        printf("\n=== MENU ADMIN (%s) ===\n", user->username);
+        printf("1. Lihat katalog buku\n");
+        printf("2. Cari buku\n");
+        printf("3. Tambah buku\n");
+        printf("4. Ubah buku\n");
+        printf("5. Hapus buku\n");
+        printf("6. Laporan peminjaman\n");
+        printf("0. Logout\n");
+        pilihan = bacaAngka("Pilihan: ", 0, 6);
+ // Menjalankan fitur admin sesuai pilihan yang dimasukkan
+        switch (pilihan)
+        {
+        case 1:
+            tampilkanKatalog(0);
+            break;
+        case 2:
+            menuCariBuku();
+            break;
+        case 3:
+            menuTambahBuku();
+            break;
+        case 4:
+            menuUbahBuku();
+            break;
+        case 5:
+            menuHapusBuku();
+            break;
+        case 6:
+            menuLaporan();
+            break;
+        }
+    } while (pilihan != 0);
+}
