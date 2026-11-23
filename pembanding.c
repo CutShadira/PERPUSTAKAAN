@@ -51,3 +51,12 @@ static int bandingkan(const Buku *a, const Buku *b, int kriteria) {
     //Kriteria tidak dikenal: anggap kedua buku sama 
     return 0;
 }
+// Menentukan apakah buku a dan b harus ditukar posisinya (unytuk sorting).
+// Parameter:
+//  kriteria - dasar pengurutan (ID, judul, tahun, halaman, stok)
+//  arah     - NAIK (ascending) atau turun (descending)
+// Return: 1 jika harus ditukar, 0 jika tidak.
+int harusTukar(const Buku *a, const Buku *b, int kriteria, int arah) {
+    // Ambil hasil perbandingan kedua buku
+    int hasil = bandingkan(a, b, kriteria);
+}
