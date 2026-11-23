@@ -369,3 +369,107 @@ static void menuAdmin(User *user)
         }
     } while (pilihan != 0);
 }
+// BAGIAN USER
+// Fungsi untuk melakukan peminjaman buku berdasarkan ID buku yang dimasukkan user
+static void menuPinjam(User *user)
+{
+    char id[64];
+
+    bacaTeksWajib("ID buku yang ingin dipinjam: ", id, sizeof(id));
+    
+    // Memproses hasil peminjaman dan menampilkan pesan sesuai kondisi transaksi
+    switch (pinjamBuku(user->username, id))
+    {
+    case PINJAM_OK:
+        printf("Buku berhasil dipinjam.\n");
+        break;
+    case PINJAM_BUKU_TIDAK_ADA:
+        printf("Buku dengan ID tersebut tidak ada.\n");
+        break;
+    case PINJAM_STOK_HABIS:
+        printf("Stok buku sedang habis.\n");
+        break;
+    case PINJAM_SUDAH_DIPINJAM:
+        printf("Kamu sedang meminjam buku ini.\n");
+        break;
+    default:
+        printf("Peminjaman gagal.\n");
+    }
+}
+// Fungsi untuk memproses pengembalian buku berdasarkan ID dan username user
+static void menuKembali(User *user)
+{
+    char id[64];
+
+    bacaTeksWajib("ID buku yang dikembalikan: ", id, sizeof(id));
+    
+    // Memproses hasil pengembalian dan menampilkan pesan sesuai kondisi transaksi
+    if (kembalikanBuku(user->username, id))
+    {
+        printf("Buku berhasil dikembalikan.\n");
+    }
+    else
+    {
+        printf("Kamu tidak sedang meminjam buku dengan ID tersebut.\n");
+    }
+}
+// Fungsi untuk menampilkan daftar buku yang sedang dipinjam oleh user
+static void menuPinjamanSaya(User *user)
+{
+    printf("\n-- Buku yang sedang kamu pinjam --\n\n");
+    if (tampilPinjaman(user->username, 1) == 0)
+    {
+        printf("Tidak ada buku yang sedang dipinjam.\n");
+    }
+}
+// Fungsi untuk menampilkan dan menjalankan menu khusus user
+static void menuUser(User *user)
+{
+    int pilihan;
+
+    do
+    {
+        printf("\n=== MENU USER (%s) ===\n", user->username);
+        printf("1. Lihat katalog buku tersedia\n");
+        printf("2. Cari buku\n");
+        printf("3. Pinjam buku\n");
+        printf("4. Kembalikan buku\n");
+        printf("5. Daftar pinjaman saya\n");
+        printf("0. Logout\n");
+        pilihan = bacaAngka("Pilihan: ", 0, 5);
+
+        switch (pilihan)
+        {
+        case 1:
+            tampilkanKatalog(1);
+            break;
+        case 2:
+            menuCariBuku();
+            break;
+        case 3:
+            menuPinjam(user);
+            break;
+        case 4:
+            menuKembali(user);
+            break;
+        case 5:
+            menuPinjamanSaya(user);
+            break;
+        }
+    } while (pilihan != 0);
+}
+// Fungsi untuk menentukan menu yang dijalankan berdasarkan role pengguna
+void jalankanMenu(User *user)
+{
+     // Memeriksa apakah pengguna memiliki hak akses sebagai admin atau user biasa
+    if (adalahAdmin(user))
+    {
+        menuAdmin(user);
+    }
+    else
+    {
+        menuUser(user);
+    }
+    // Menampilkan pesan setelah pengguna selesai menggunakan menu dan logout
+    printf("\nKamu sudah logout.\n");
+}
