@@ -3,4 +3,7 @@
 
 #include "pembanding.h"
 
+// Deklarasi fungsi untuk mengurutkan data dengan Insertion Sort
+void insertionSort(Buku **arr, int n, int kriteria, int arah);
+
 #endif
