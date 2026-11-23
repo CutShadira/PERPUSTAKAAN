@@ -6,4 +6,7 @@
 // Verifikasi username dan password. Return: pointer user jika cocok, NULL jika gagal.
 User *login(const char *username, const char *password);
 
+// Cek role user. Return: 1 jika admin, 0 jika bukan.
+int adalahAdmin(const User *u);
+
 #endif
