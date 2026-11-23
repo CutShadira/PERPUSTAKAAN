@@ -29,6 +29,12 @@ int bandingkanTeks(const char *a, const char *b) {
 // Fungsi ini hanya dipakai di file ini (static).
 static int bandingkan(const Buku *a, const Buku *b, int kriteria) {
     switch (kriteria) {
+        case URUT_ID:
+            // Bandingkan ID (ocaid) sebagai teks
+            return bandingkanTeks(a->ocaid, b->ocaid);
+        case URUT_JUDUL:
+            // Bandingkan judul sebagai teks
+            return bandingkanTeks(a->title, b->title);
 
         // jika a - b hasilnya negatif, maka a lebih kecil dari b, artinya tidak perlu ditukar
         // jika a - b hasilnya positif, maka a lebih besar dari b, artinya perlu ditukar
