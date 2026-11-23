@@ -13,5 +13,10 @@
 #define URUT_HALAMAN 4  // urut berdasarkan jumlah halaman
 #define URUT_STOK 5     // urut berdasarkan jumlah stok
 
+// arah pengurutan
+// kode angka untuk menentukan urutan naik atau turun
+#define NAIK 1  // ascendng (kecil ke besar, A ke Z)
+#define TURUN 2 // descending (besar ke kecil, Z ke A)
+
 // Akhir dari header guard
 #endif
