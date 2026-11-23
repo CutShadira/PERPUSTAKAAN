@@ -126,3 +126,63 @@ User *menuLogin(void)
         printf("Username atau password salah, coba lagi.\n");
     }
 }
+// BAGIAN KATALOG
+static void pilihPengurutan(int *kriteria, int *arah, int *algoritma)
+{
+    *algoritma = 1; // Selalu menggunakan Bubble Sort
+ // Menampilkan pilihan kriteria pengurutan buku
+    printf("\nUrutkan berdasarkan:\n");
+    printf("1. ID Buku\n2. Judul\n3. Tahun Terbit\n4. Jumlah Halaman\n5. Stok\n");
+    *kriteria = bacaAngka("Pilih kriteria: ", 1, 5);
+ // Menentukan urutan data secara menaik atau menurun
+    printf("\n1. Naik (A-Z / terlama / terkecil)\n");
+    printf("2. Turun (Z-A / terbaru / terbesar)\n");
+    *arah = bacaAngka("Pilih arah: ", 1, 2);
+}
+// Fungsi untuk menampilkan katalog buku berdasarkan kriteria pengurutan dan ketersediaan stok
+static void tampilkanKatalog(int hanyaTersedia)
+{
+    int kriteria, arah, algoritma, jumlah, i;
+    char jawab[8];
+    Buku **daftar;
+ // Memilih pengurutan dan menyiapkan daftar buku sesuai kriteria
+    pilihPengurutan(&kriteria, &arah, &algoritma);
+    daftar = siapkanKatalog(hanyaTersedia, &jumlah, kriteria, arah, algoritma);
+ // Memeriksa apakah terdapat buku yang dapat ditampilkan
+    if (daftar == NULL)
+    {
+        printf("\nTidak ada buku untuk ditampilkan.\n");
+        return;
+    }
+ // Menampilkan informasi pengurutan dan jumlah buku dalam katalog
+    printf("\nDiurutkan: %s (%s) memakai %s, total %d buku\n\n",
+           NAMA_KRITERIA[kriteria], arah == NAIK ? "naik" : "turun",
+           NAMA_ALGORITMA[algoritma], jumlah);
+// Menampilkan daftar buku dengan sistem halaman maksimal 20 buku
+    cetakHeaderBuku();
+    for (i = 0; i < jumlah; i++)
+    {
+        cetakBarisBuku(i + 1, daftar[i]);
+
+        if ((i + 1) % PER_HALAMAN == 0 && i + 1 < jumlah)
+        {
+            bacaBaris("-- Enter untuk lanjut, q untuk berhenti: ", jawab, sizeof(jawab));
+            if (jawab[0] == 'q' || jawab[0] == 'Q')
+            {
+                break;
+            }
+        }
+    }
+    free(daftar);
+}
+// Fungsi untuk mencari buku berdasarkan ID atau judul
+static void menuCariBuku(void)
+{
+    char kata[64];
+
+    bacaTeksWajib("Masukkan ID atau judul buku: ", kata, sizeof(kata));
+    if (cariBuku(kata) == 0)
+    {
+        printf("Buku tidak ditemukan.\n");
+    }
+}
