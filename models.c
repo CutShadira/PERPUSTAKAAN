@@ -297,3 +297,14 @@ static int muatPinjam(void)
     fclose(f);
     return 1;
 }
+// Memuat semua data dari file
+int muatSemuaData(void)
+{
+    if (!muatBuku() || !muatUser() || !muatPinjam())
+    {
+        bebaskanSemuaData();
+        return 0;
+    }
+
+    return 1;
+}
