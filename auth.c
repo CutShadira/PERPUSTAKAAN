@@ -8,6 +8,9 @@ User *login(const char *username, const char *password) {
 
     // Telusuri semua user yang terdaftar di dataUser
     for (i = 0; i < jumlahUser; i++) {
+        if (strcmp(dataUser[i].username, username) == 0
+            && strcmp(dataUser[i].password, password) == 0) {
+        }
     }
     // Jika tidak ada user yang cocok: login gagal
     return NULL;
