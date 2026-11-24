@@ -1,10 +1,9 @@
 # SISTEM-PERPUSTAKAAN 
 ## Anggota Kelompok
-1.⁠ ⁠Cut Shadira Alifa Risty  - 260810701100006 - Fitur Integrasi (⁠ main.c ⁠, ⁠ menu.h ⁠, ⁠ menu.c ⁠, ⁠ models.h ⁠, ⁠ models.c ⁠)
-2.⁠ ⁠M. Khalish Al Ghazie - 260810701100076 - Fitur Algoritma (⁠ pembanding.h ⁠, ⁠ pembanding.c ⁠, ⁠ bubble_sort.h ⁠, ⁠ bubble_sort.c  ⁠)
-3.⁠ ⁠Muhammad Alexandria Kemal Pasha - 260810701100009 - Fitur Buku (⁠ buku.h ⁠, ⁠ buku.c ⁠, ⁠ books.txt ⁠, ⁠ peminjaman.txt ⁠)
-4.⁠ ⁠Rihadatul Marsya - 260810701100051 - Fitur Auth (⁠ auth.h ⁠, ⁠ auth.c ⁠, ⁠ user.txt ⁠) & Fitur Algoritma (⁠ selection_sort.h ⁠, ⁠ selection_sort.c ⁠, ⁠ insertion_sort.h ⁠, ⁠ insertion_sort.c ⁠)
-
+1.⁠ ⁠Cut Shadira Alifa Risty  - 260810701100006 
+2.⁠ ⁠M. Khalish Al Ghazie - 260810701100076 
+3.⁠ ⁠Muhammad Alexandria Kemal Pasha - 260810701100009 
+4.⁠ ⁠Rihadatul Marsya - 260810701100051 
 ---
 
 ## Deskripsi Aplikasi
