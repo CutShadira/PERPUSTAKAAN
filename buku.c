@@ -235,3 +235,36 @@ int kembalikanBuku(const char *username, const char *ocaid) {
     simpanPinjam();
     return 1;
 }
+//Menampilkan daftar transaksi peminjaman
+int tampilPinjaman(const char *username, int hanyaAktif) {
+    int i, idx, jumlah = 0;
+    const char *judul;
+
+    for (i = 0; i < jumlahPinjam; i++) {
+        if (username != NULL && strcmp(dataPinjam[i].username, username) != 0) {
+            continue;
+        }
+        if (hanyaAktif && strcmp(dataPinjam[i].status, "DIPINJAM") != 0) {
+            continue;
+        }
+
+        if (jumlah == 0) {
+            printf("%-5s %-14s %-28s %-30s %-11s %-9s\n",
+                   "ID", "Peminjam", "ID Buku", "Judul", "Tanggal", "Status");
+            cetakGaris(102);
+        }
+
+        idx = cariIndexBuku(dataPinjam[i].ocaid);
+        if (idx != -1) {
+            judul = dataBuku[idx].title;
+        } else {
+            judul = "(buku sudah dihapus)";
+        }
+
+        printf("%-5u %-14.14s %-28.28s %-30.30s %-11s %-9s\n",
+               dataPinjam[i].id_peminjaman, dataPinjam[i].username, dataPinjam[i].ocaid,
+               judul, dataPinjam[i].tanggal_pinjam, dataPinjam[i].status);
+        jumlah++;
+    }
+    return jumlah;
+}
