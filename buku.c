@@ -149,3 +149,24 @@ Buku **siapkanKatalog(int hanyaTersedia, int *jumlah, int kriteria, int arah, in
     *jumlah = n;
     return daftar;
 }
+// Menampilkan header tabel buku
+void cetakHeaderBuku(void) {
+    printf("%-4s %-30s %-34s %-22s %-5s %-5s %-4s\n",
+           "No", "ID (ocaid)", "Judul", "Pengarang", "Tahun", "Hal", "Stok");
+    cetakGaris(110);
+}
+// Menampilkan satu baris informasi buku
+void cetakBarisBuku(int no, const Buku *b) {
+    printf("%-4d %-30.30s %-34.34s %-22.22s %-5d %-5d %-4d\n",
+           no, b->ocaid, b->title, b->author, b->year, b->page_count, b->stok);
+}
+// Menampilkan detail lengkap buku
+void cetakDetailBuku(const Buku *b) {
+    printf("\nID        : %s\n", b->ocaid);
+    printf("Judul     : %s\n", b->title);
+    printf("Pengarang : %s\n", b->author);
+    printf("Tahun     : %d\n", b->year);
+    printf("Halaman   : %d\n", b->page_count);
+    printf("Stok      : %d\n", b->stok);
+    printf("Link      : %s\n", b->full_text_url);
+}
