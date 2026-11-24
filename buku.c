@@ -110,3 +110,42 @@ int hapusBuku(int index) {
     simpanBuku();
     return 1;
 }
+// Menyiapkan dan mengurutkan daftar buku
+Buku **siapkanKatalog(int hanyaTersedia, int *jumlah, int kriteria, int arah, int algoritma) {
+    Buku **daftar;
+    int i, n = 0;
+
+    for (i = 0; i < jumlahBuku; i++) {
+        if (!hanyaTersedia || dataBuku[i].stok > 0) {
+            n++;
+        }
+    }
+    *jumlah = 0;
+    if (n == 0) {
+        return NULL;
+    }
+
+    daftar = malloc(n * sizeof(Buku *));
+    if (daftar == NULL) {
+        return NULL;
+    }
+
+    n = 0;
+    for (i = 0; i < jumlahBuku; i++) {
+        if (!hanyaTersedia || dataBuku[i].stok > 0) {
+            daftar[n] = &dataBuku[i];
+            n++;
+        }
+    }
+
+    if (algoritma == 1) {
+        bubbleSort(daftar, n, kriteria, arah);
+    } else if (algoritma == 2) {
+        selectionSort(daftar, n, kriteria, arah);
+    } else {
+        insertionSort(daftar, n, kriteria, arah);
+    }
+
+    *jumlah = n;
+    return daftar;
+}
