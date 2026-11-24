@@ -10,7 +10,7 @@
 #define PER_HALAMAN 20
 
 // Menyimpan nama algoritma pengurutan dan kriteria yang tersedia
-static const char *NAMA_ALGORITMA[] = {"", "Bubble Sort"};
+static const char *NAMA_ALGORITMA[] = {"", "Bubble Sort", "Selection Sort", "Insertion Sort"};
 static const char *NAMA_KRITERIA[] = {"", "ID Buku", "Judul", "Tahun Terbit", "Jumlah Halaman", "Stok"};
 
 // BAGIAN INPUT
@@ -129,12 +129,14 @@ User *menuLogin(void)
 // BAGIAN KATALOG
 static void pilihPengurutan(int *kriteria, int *arah, int *algoritma)
 {
-    *algoritma = 1; // Selalu menggunakan Bubble Sort
- // Menampilkan pilihan kriteria pengurutan buku
+    printf("\nAlgoritma pengurutan:\n");
+    printf("1. Bubble Sort\n2. Selection Sort\n3. Insertion Sort\n");
+    *algoritma = bacaAngka("Pilih algoritma: ", 1, 3);
+
     printf("\nUrutkan berdasarkan:\n");
     printf("1. ID Buku\n2. Judul\n3. Tahun Terbit\n4. Jumlah Halaman\n5. Stok\n");
     *kriteria = bacaAngka("Pilih kriteria: ", 1, 5);
- // Menentukan urutan data secara menaik atau menurun
+
     printf("\n1. Naik (A-Z / terlama / terkecil)\n");
     printf("2. Turun (Z-A / terbaru / terbesar)\n");
     *arah = bacaAngka("Pilih arah: ", 1, 2);
