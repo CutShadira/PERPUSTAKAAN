@@ -33,3 +33,37 @@ static int mengandung(const char *teks, const char *kata) {
     }
     return 0;
 }
+//Mencari transaksi peminjaman yang masih aktif
+static int cariPinjamanAktif(const char *username, const char *ocaid) {
+    int i;
+
+    for (i = 0; i < jumlahPinjam; i++) {
+        if (strcmp(dataPinjam[i].username, username) == 0
+            && strcmp(dataPinjam[i].ocaid, ocaid) == 0
+            && strcmp(dataPinjam[i].status, "DIPINJAM") == 0) {
+            return i;
+        }
+    }
+    return -1;
+}
+//Menentukan ID peminjaman berikutnya
+static unsigned int idPinjamBerikutnya(void) {
+    unsigned int terbesar = 0;
+    int i;
+
+    for (i = 0; i < jumlahPinjam; i++) {
+        if (dataPinjam[i].id_peminjaman > terbesar) {
+            terbesar = dataPinjam[i].id_peminjaman;
+        }
+    }
+    return terbesar + 1;
+}
+//Mencetak garis horizontal
+static void cetakGaris(int panjang) {
+    int i;
+
+    for (i = 0; i < panjang; i++) {
+        putchar('-');
+    }
+    putchar('\n');
+}
