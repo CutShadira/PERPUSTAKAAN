@@ -67,3 +67,46 @@ static void cetakGaris(int panjang) {
     }
     putchar('\n');
 }
+// BAGIAN KATALOG BUKU 
+// Mencari posisi buku berdasarkan ID
+int cariIndexBuku(const char *ocaid) {
+    int i;
+
+    for (i = 0; i < jumlahBuku; i++) {
+        if (strcmp(dataBuku[i].ocaid, ocaid) == 0) {
+            return i;
+        }
+    }
+    return -1;
+}
+
+// Menambahkan buku ke katalog
+int tambahBuku(Buku b) {
+    if (cariIndexBuku(b.ocaid) != -1) {
+        return 0;
+    }
+    if (!tambahBukuKeMemori(b)) {
+        return 0;
+    }
+    simpanBuku();
+    return 1;
+}
+
+// Menghapus buku dari katalog
+int hapusBuku(int index) {
+    int i;
+
+    for (i = 0; i < jumlahPinjam; i++) {
+        if (strcmp(dataPinjam[i].ocaid, dataBuku[index].ocaid) == 0
+            && strcmp(dataPinjam[i].status, "DIPINJAM") == 0) {
+            return 0;
+        }
+    }
+
+    for (i = index; i < jumlahBuku - 1; i++) {
+        dataBuku[i] = dataBuku[i + 1];
+    }
+    jumlahBuku--;
+    simpanBuku();
+    return 1;
+}
