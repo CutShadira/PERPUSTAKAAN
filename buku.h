@@ -22,3 +22,13 @@ void cetakBarisBuku(int no, const Buku *b);
 void cetakDetailBuku(const Buku *b);
 //Mencari buku berdasarkan ID atau judul
 int cariBuku(const char *kataKunci);
+
+//BAGIAN PEMINJAMAN
+//Memproses peminjaman dan pengembalian buku
+int pinjamBuku(const char *username, const char *ocaid);
+int kembalikanBuku(const char *username, const char *ocaid);
+
+//Menampilkan daftar transaksi peminjaman
+int tampilPinjaman(const char *username, int hanyaAktif);
+
+#endif
