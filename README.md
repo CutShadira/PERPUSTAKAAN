@@ -64,7 +64,3 @@ Jika proses kompilasi berhasil, jalankan program dengan perintah:
 ./perpustakaan
 
 Catatan : 
-•⁠  ⁠Pastikan seluruh file .c dan .h tersedia sesuai struktur folder proyek.
-•⁠  ⁠Pastikan folder data/ beserta file penyimpanan .txt tersedia.
-•⁠  ⁠Jalankan program dari direktori utama proyek agar lokasi penyimpanan data dapat ditemukan dengan benar.
-•⁠  ⁠Jika terjadi kesalahan saat kompilasi, periksa kembali nama file dan lokasi direktori.
