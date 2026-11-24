@@ -13,3 +13,12 @@
 int cariIndexBuku(const char *ocaid);
 int tambahBuku(Buku b);
 int hapusBuku(int index);
+
+//Menyiapkan dan mengurutkan daftar buku
+Buku **siapkanKatalog(int hanyaTersedia, int *jumlah, int kriteria, int arah, int algoritma);
+
+void cetakHeaderBuku(void);
+void cetakBarisBuku(int no, const Buku *b);
+void cetakDetailBuku(const Buku *b);
+//Mencari buku berdasarkan ID atau judul
+int cariBuku(const char *kataKunci);
