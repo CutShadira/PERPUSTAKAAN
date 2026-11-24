@@ -170,3 +170,16 @@ void cetakDetailBuku(const Buku *b) {
     printf("Stok      : %d\n", b->stok);
     printf("Link      : %s\n", b->full_text_url);
 }
+// Mencari buku berdasarkan ID atau judul
+int cariBuku(const char *kataKunci) {
+    int i, ketemu = 0;
+
+    for (i = 0; i < jumlahBuku; i++) {
+        if (mengandung(dataBuku[i].ocaid, kataKunci)
+            || mengandung(dataBuku[i].title, kataKunci)) {
+            cetakDetailBuku(&dataBuku[i]);
+            ketemu++;
+        }
+    }
+    return ketemu;
+}
