@@ -183,3 +183,34 @@ int cariBuku(const char *kataKunci) {
     }
     return ketemu;
 }
+// BAGIAN PEMINJAMAN
+// Memproses transaksi peminjaman buku
+int pinjamBuku(const char *username, const char *ocaid) {
+    int idx = cariIndexBuku(ocaid);
+    Peminjaman p;
+
+    if (idx == -1) {
+        return PINJAM_BUKU_TIDAK_ADA;
+    }
+    if (dataBuku[idx].stok <= 0) {
+        return PINJAM_STOK_HABIS;
+    }
+    if (cariPinjamanAktif(username, ocaid) != -1) {
+        return PINJAM_SUDAH_DIPINJAM;
+    }
+
+    p.id_peminjaman = idPinjamBerikutnya();
+    snprintf(p.username, sizeof(p.username), "%s", username);
+    snprintf(p.ocaid, sizeof(p.ocaid), "%s", ocaid);
+    tanggalHariIni(p.tanggal_pinjam);
+    snprintf(p.status, sizeof(p.status), "%s", "DIPINJAM");
+
+    if (!tambahPinjamKeMemori(p)) {
+        return PINJAM_GAGAL;
+    }
+    dataBuku[idx].stok--;
+
+    simpanBuku();
+    simpanPinjam();
+    return PINJAM_OK;
+}
