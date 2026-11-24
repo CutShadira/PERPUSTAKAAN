@@ -214,3 +214,24 @@ int pinjamBuku(const char *username, const char *ocaid) {
     simpanPinjam();
     return PINJAM_OK;
 }
+
+//Memproses pengembalian buku
+int kembalikanBuku(const char *username, const char *ocaid) {
+    int idxPinjam = cariPinjamanAktif(username, ocaid);
+    int idxBuku;
+
+    if (idxPinjam == -1) {
+        return 0;
+    }
+    snprintf(dataPinjam[idxPinjam].status, sizeof(dataPinjam[idxPinjam].status),
+             "%s", "KEMBALI");
+
+    idxBuku = cariIndexBuku(ocaid);
+    if (idxBuku != -1) {
+        dataBuku[idxBuku].stok++;
+    }
+
+    simpanBuku();
+    simpanPinjam();
+    return 1;
+}
