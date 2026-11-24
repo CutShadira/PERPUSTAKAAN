@@ -45,10 +45,30 @@ Aplikasi ini menggunakan penyimpanan berbasis berkas teks (`.txt`) agar data tet
 
 ---
 
-## Cara Menjalankan Program (Run)
+## Cara Menjalankan Program (Compile & Run)
 
-Pastikan compiler **GCC** sudah terinstal di komputer. Buka terminal di dalam folder utama proyek, lalu jalankan perintah berikut:
+1.⁠ ⁠Persyaratan Sistem
+Sebelum menjalankan aplikasi, pastikan:
+•⁠  ⁠GCC (GNU Compiler Collection) sudah terinstal.
+•⁠  ⁠Terminal atau Command Prompt tersedia.
+•⁠  ⁠Seluruh file proyek berada dalam satu folder dengan struktur yang sesuai.
 
-1. **Compile seluruh file `.c`:**
-   ```bash
-   gcc -Wall -Wextra -o perpustakaan main.c models.c auth.c buku.c menu.c algoritma/*.c
+## Windows
+Buka terminal (PowerShell) pada folder utama proyek, kemudian lakukan kompilasi menggunakan perintah:
+gcc -Wall -Wextra -o perpustakaan.exe main.c models.c auth.c buku.c menu.c algoritma/pembanding.c algoritma/bubble_sort.c algoritma/selection_sort.c algoritma/insertion_sort.c
+
+Jika proses kompilasi berhasil, jalankan program dengan perintah:
+.\perpustakaan.exe
+
+## Mac (macOS)
+Buka Terminal pada folder utama proyek, kemudian lakukan kompilasi menggunakan perintah:
+gcc -Wall -Wextra -o perpustakaan main.c models.c auth.c buku.c menu.c algoritma/pembanding.c algoritma/bubble_sort.c algoritma/selection_sort.c algoritma/insertion_sort.c
+
+Jika proses kompilasi berhasil, jalankan program dengan perintah:
+./perpustakaan
+
+Catatan : 
+•⁠  ⁠Pastikan seluruh file .c dan .h tersedia sesuai struktur folder proyek.
+•⁠  ⁠Pastikan folder data/ beserta file penyimpanan .txt tersedia.
+•⁠  ⁠Jalankan program dari direktori utama proyek agar lokasi penyimpanan data dapat ditemukan dengan benar.
+•⁠  ⁠Jika terjadi kesalahan saat kompilasi, periksa kembali nama file dan lokasi direktori.
