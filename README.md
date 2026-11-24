@@ -53,6 +53,14 @@ Sebelum menjalankan aplikasi, pastikan:
 •⁠  ⁠Terminal atau Command Prompt tersedia.
 •⁠  ⁠Seluruh file proyek berada dalam satu folder dengan struktur yang sesuai.
 
+## Windows
+Buka terminal (PowerShell) pada folder utama proyek, kemudian lakukan kompilasi menggunakan perintah:
+gcc -Wall -Wextra -o perpustakaan main.c models.c auth.c buku.c menu.c algoritma/*.c
+
+Jika proses kompilasi berhasil, jalankan program dengan perintah:
+.\perpustakaan.exe
+
+## Mac (macOS)
 Buka Terminal pada folder utama proyek, kemudian lakukan kompilasi menggunakan perintah:
 gcc -Wall -Wextra -o perpustakaan main.c models.c auth.c buku.c menu.c algoritma/*.c
 
